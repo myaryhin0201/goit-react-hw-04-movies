@@ -14,7 +14,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   color: #212121;
-  background-color: #fff;
+  background-color: coral;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -25,11 +25,11 @@ svg {
   height: auto;
 }
 
-.NavLink {
-  font-size: 20px;
+.Navlink {
+  font-size: 40px;
   color: blue;
 }
-.NavLink--active {
+.Navlink--active {
   color: yellow;
 }
 

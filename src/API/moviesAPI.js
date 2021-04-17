@@ -1,17 +1,46 @@
 import axios from 'axios';
 
-const apiKey = '907ef2490a0f9ad89c1d3bf5ec5b623a';
-axios.defaults.baseURL = 'https://api.themoviedb.org/3/';
-// {
-//   // searchQuery = '',
-//   // currentPage = 1,
-//   // perPage = 9,
-// },
+const apiKey = process.env.REACT_APP_API_KEY;
 
-// https://api.themoviedb.org/3/trending/all/day?api_key=<<api_key>>
+axios.defaults.baseURL = 'https://api.themoviedb.org/3';
+axios.defaults.params = {
+  api_key: apiKey,
+};
 
-export const fetchMovies = (searchQuery = '', currentPage = 1, perPage = 9) => {
+export const fetchTrendMovies = () => {
+  return axios.get(`/trending/all/day`).then(({ data: { results } }) => {
+    console.log(results);
+    return results;
+  });
+};
+export const searchMovies = (query = '') => {
   return axios
-    .get(`trending/movie/week?api_key=${apiKey}`)
-    .then(({ data: { results } }) => results);
+    .get(`/search/movie?query=${query}`)
+    .then(({ data: { results } }) => {
+      console.log(results);
+      return results;
+    });
+};
+
+export const fetchhMovieInfo = movieId => {
+  return axios.get(`/movie/${movieId}`).then(({ data }) => {
+    console.log(data);
+    return data;
+  });
+};
+
+export const fetchhMovieCast = movieId => {
+  return axios.get(`/movie/${movieId}/credits`).then(({ data: { cast } }) => {
+    console.log(cast);
+    return cast;
+  });
+};
+
+export const fetchhMovieReviews = movieId => {
+  return axios
+    .get(`/movie/${movieId}/reviews`)
+    .then(({ data: { results } }) => {
+      console.log(results);
+      return results;
+    });
 };
