@@ -2,7 +2,6 @@
   "name": "movies",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://myaryhin0201.github.io/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
@@ -28,7 +27,7 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "npx prettier -w .",
-    "postdeploy": "gh-pages -d build"
+    "postdeploy": "netlify deploy -p"
   },
   "eslintConfig": {
     "extends": [
