@@ -35,7 +35,7 @@ const Reviews = ({ match }) => {
           ))}
         </ul>
       ) : (
-        <p>We don't have any reviews for this movie</p>
+        <p className="notification">We don't have any reviews for this movie</p>
       )}
     </>
   );
