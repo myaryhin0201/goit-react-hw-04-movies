@@ -3,7 +3,10 @@ import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles({
   spinner: {
-    margin: '0 auto',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '50px',
   },
 });
 

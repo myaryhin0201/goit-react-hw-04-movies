@@ -1,20 +1,20 @@
-// *,
-// *:before,
-// *:after {
-//   outline: 1px solid red;
-// }
-
 html {
   box-sizing: border-box;
-  width: 100vw;
   overflow-x: hidden;
 }
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  // outline: 2px solid red;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-  color: #212121;
-  background-color: coral;
+  color: white;
+  background-image: url('../src/images/dark-grey-terrazzo.png');
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -24,13 +24,113 @@ svg {
   max-width: 100%;
   height: auto;
 }
-
-.Navlink {
-  font-size: 40px;
-  color: blue;
+.form__group__btn {
+  background-color: transparent;
+  color: white;
+  outline: none;
+  border: none;
+  padding: 5px;
 }
-.Navlink--active {
-  color: yellow;
+.notification {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.error {
+  color: red;
+}
+.form {
+  display: block;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  @media screen and (min-width: 400px) {
+    width: 336px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  & input {
+    background-color: transparent;
+    font-size: 20px;
+    border: none;
+    width: 100%;
+    color: white;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 16px;
+    &:hover,
+    &:focus {
+      outline: none;
+    }
+    &::placeholder {
+      color: white;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 1.14;
+    }
+  }
+}
+.form__group {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  &:before {
+    content: ' ';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 0px;
+    border: 0.5px solid #ffffff;
+  }
+}
+.author {
+  color: orange;
+  font-size: 20px;
+  font-weight: bold;
+}
+.content {
+  padding: 20px;
+  font-size: 16px;
+  line-height: 1.35;
+}
+.PageTitle {
+  padding: 10px;
+  text-align: center;
+}
+.AddTitle {
+  margin: 20px 0;
+  font-size: 25px;
+  color: white;
+  // background-color: white;
+}
+.GoBackBtn {
+  background-color: orange;
+  padding: 5px 35px;
+  border: none;
+  border-radius: 10px;
+  color: black;
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-left: 50px;
+  margin-bottom: 20px;
+  outline: none;
+  &:hover,
+  &:focus {
+    color: orange;
+    background-color: grey;
+  }
+}
+.fade-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateX(0%);
+  transition: all 1000ms ease-in-out;
 }
 
 html,
@@ -120,7 +220,7 @@ video {
 }
 
 ul,
-ul {
+li {
   list-style-type: none;
   text-decoration: none;
 }

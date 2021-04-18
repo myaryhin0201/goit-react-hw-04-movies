@@ -1,9 +1,10 @@
 import { useEffect, useState, Suspense, lazy } from 'react';
 import { NavLink, Route, useHistory, useLocation } from 'react-router-dom';
 import { fetchhMovieInfo } from '../API/moviesAPI';
-import MovieDetail from '../components/MovieDetail';
+import MovieDetails from '../components/MovieDetails';
 import routes from '../routes';
 import Loader from '../components/Loader';
+import useStyles from '../components/Navigation/NavigationStyles';
 
 const Cast = lazy(() =>
   import('../components/Cast' /* webpackChunkName: "cast" */),
@@ -24,13 +25,14 @@ const MovieDetailsPage = ({ match }) => {
     vote_average: '',
     tagline: '',
   });
+  const [error, setError] = useState(false);
   const { state } = useLocation();
   const history = useHistory();
 
   const movieId = Number(match.params.movieId);
 
-  useEffect(() => {
-    async function fetchData() {
+  const fetchData = async () => {
+    try {
       const movieInfo = await fetchhMovieInfo(movieId);
       const normalizedDate = await movieInfo.release_date
         .split('-')
@@ -45,7 +47,12 @@ const MovieDetailsPage = ({ match }) => {
         release_date: normalizedDate,
         budget: normalizedBudget,
       });
+    } catch (err) {
+      setError(`${err}`);
     }
+  };
+
+  useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -57,54 +64,49 @@ const MovieDetailsPage = ({ match }) => {
       state,
     });
   };
-
+  const classes = useStyles();
   return (
     <>
-      <button type="button" onClick={handleGoBack}>
+      <button className="GoBackBtn" type="button" onClick={handleGoBack}>
         Go back
       </button>
-      {movie.poster_path ? (
-        <MovieDetail
-          title={movie.title}
-          overview={movie.overview}
-          poster_path={movie.poster_path}
-          genres={movie.genres}
-          release_date={movie.release_date}
-          vote_average={movie.vote_average}
-          budget={movie.budget}
-          homepage={movie.homepage}
-          tagline={movie.tagline}
-        />
-      ) : (
-        <h2>Details not found</h2>
-      )}
-      <div>
+
+      {error && <p>Oops, error : {error}</p>}
+      <MovieDetails
+        title={movie.title}
+        overview={movie.overview}
+        poster_path={movie.poster_path}
+        genres={movie.genres}
+        release_date={movie.release_date}
+        vote_average={movie.vote_average}
+        budget={movie.budget}
+        homepage={movie.homepage}
+        tagline={movie.tagline}
+      />
+      <div className="AddTitle">
         <h3>Additional information</h3>
-        <ul className="add-info-block">
-          <li>
-            <NavLink
-              className="add-info"
-              activeClassName="add-info--active"
-              to={{
-                pathname: `${match.url}/cast`,
-                state,
-              }}
-            >
-              Cast
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              className="add-info"
-              activeClassName="add-info--active"
-              to={{
-                pathname: `${match.url}/reviews`,
-                state,
-              }}
-            >
-              Reviews
-            </NavLink>
-          </li>
+        <ul className={classes.AddInformation}>
+          <NavLink
+            className={classes.Navlink}
+            activeClassName={classes.NavlinkActive}
+            to={{
+              pathname: `${match.url}/cast`,
+              state,
+            }}
+          >
+            Cast
+          </NavLink>
+
+          <NavLink
+            className={classes.Navlink}
+            activeClassName={classes.NavlinkActive}
+            to={{
+              pathname: `${match.url}/reviews`,
+              state,
+            }}
+          >
+            Reviews
+          </NavLink>
         </ul>
       </div>
       <Suspense fallback={<Loader />}>
